@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <circle cx="32" cy="32" r="30" fill="#faad14"/>
+  <g fill="white">
+    <!-- 感叹号竖线 -->
+    <path d="M29 20a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v20a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V20z"/>
+    <!-- 感叹号圆点 -->
+    <circle cx="32" cy="48" r="3"/>
+  </g>
+</svg>

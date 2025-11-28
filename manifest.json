@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "redmine字段人员修改",
+  "version": "1.0",
+  "description": "用于快速搜索并选择指定字段的人员",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      // "16": "images/success.svg"
+      // "48": "images/icon48.png",
+      // "128": "images/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      // "js": ["content-script.js"],
+      "run_at": "document_end",
+      "css": ["message.css"],
+      "svg": ["images/success.svg", "images/warn.svg", "images/info.svg", "images/error.svg"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["message.css", "images/success.svg", "images/warn.svg", "images/info.svg", "images/error.svg"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    // "16": "images/success.svg"
+    // "48": "images/icon48.png",
+    // "128": "images/icon128.png"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}

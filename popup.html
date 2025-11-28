@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      width: 400px;
+      padding: 16px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+    
+    .header, .header-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .header{
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e1e5e9;
+    }
+    
+    .icon {
+      width: 24px;
+      height: 24px;
+      background-color: #4a6ee0;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    h1 {
+      font-size: 18px;
+      margin: 0;
+      color: #2c3e50;
+    }
+    
+    .input-group {
+      margin-bottom: 12px;
+    }
+
+    #person_box{
+        margin-top: 8px;
+    }
+    .person_btn{
+        padding: 4px 12px;
+        font-size: 12px;
+        margin-left: 8px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    .person_btn:hover{
+        background-color: #7f8c8d;
+        color: #fff;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+      font-size: 14px;
+      color: #555;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d9e6;
+      border-radius: 6px;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #4a6ee0;
+      box-shadow: 0 0 0 2px rgba(74, 110, 224, 0.2);
+    }
+    
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+      font-family: monospace;
+      font-size: 13px;
+    }
+    
+    .hint {
+      font-size: 12px;
+      color: #7f8c8d;
+      margin-top: 4px;
+    }
+    
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    #search-btn {
+      background-color: #4a6ee0;
+      color: white;
+    }
+    
+    #search-btn:hover {
+      background-color: #3a5ed0;
+    }
+    
+    #clear-btn {
+      background-color: #e0e6f0;
+      color: #555;
+    }
+    
+    #clear-btn:hover {
+      background-color: #d1d9e6;
+    }
+    
+    .results-container {
+      margin-top: 16px;
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #e1e5e9;
+      border-radius: 6px;
+      background-color: white;
+    }
+    
+    .results-header {
+      padding: 10px;
+      background-color: #f0f4f8;
+      border-bottom: 1px solid #e1e5e9;
+      font-weight: 500;
+      font-size: 14px;
+      color: #4a5568;
+    }
+    
+    .results-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .result-item {
+      padding: 12px;
+      border-bottom: 1px solid #f1f1f1;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    
+    .result-item:hover {
+      background-color: #f8fafc;
+    }
+    
+    .result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .no-results {
+      padding: 20px;
+      text-align: center;
+      color: #7f8c8d;
+      font-style: italic;
+    }
+    
+    .highlight {
+      background-color: #fff3cd;
+      padding: 2px 4px;
+      border-radius: 2px;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #7f8c8d;
+    }
+    
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #4a6ee0;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+    }
+
+    #dom-selector option{
+      font-size: 16px;
+    }
+
+    #dom-selector {
+      display: flex;
+      height: 36px;
+      align-items: center;
+    }
+
+    .dom-field-item{
+      height: 30px;
+      flex: 1;
+      margin: 5px;
+      background-color: #e0e6f0;
+      text-align: center;
+      line-height: 30px;
+      color: #555;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .dom-field-item:hover {
+      background-color: #d1d9e6;
+    }
+
+    .field-choosed{
+      background-color: #1377eb;
+      color: #fff;
+    }
+    .field-choosed:hover{
+      background-color: #1377eb;
+      color: #fff;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+   
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-title">
+      <div class="icon">D</div>
+      <h1>redmine字段人员修改</h1>
+    </div>
+    
+    <div style="margin-top: 10px; text-align: center;">
+      <a href="#" id="about-link">关于</a>
+    </div>
+  </div>
+  
+  <div class="input-group">
+    <label for="search-text">搜索内容</label>
+    <input type="text" id="search-text" placeholder="输入要搜索的文本">
+    <div id="person_box"></div>
+  </div>
+  
+  <div class="input-group">
+    <label for="dom-selector">字段选择器(选择需要修改的字段)</label>
+    <!-- <select id="dom-selector"></select> -->
+    <div id="dom-selector"></div>
+  </div>
+  
+  <!-- <div class="input-group">
+    <label for="parent-selector">父容器选择器 (可选)</label>
+    <input type="text" id="parent-selector" placeholder="例如: .container, #main-content" value="#issue_custom_field_values_54">
+    <div class="hint">限制搜索范围在特定的父容器内</div>
+  </div> -->
+  
+  <div class="buttons">
+    <button id="search-btn">搜索</button>
+    <!-- <button id="clear-btn">清空</button> -->
+  </div>
+  
+  <div class="results-container" id="results-container">
+    <div class="results-header">搜索结果（选择搜索结果修改字段数据）</div>
+    <div id="results-content">
+      <div class="no-results">输入搜索条件并点击"搜索"按钮</div>
+    </div>
+  </div>
+
+
+  <script src="popup.js"></script>
+</body>
+</html>
